@@ -11,16 +11,22 @@ class Ingresso
     return 0 if age < 0
 
     if age < 5 || age > 65
-      @price * 0.8
+      discount = 0.8
     elsif student
-      case age
-      when 6..17  then @price * 0.5
-      when 18..25 then @price * 0.25
-      when 26..64 then @price * 0.1
+      discount = case age
+      when 6..17  then 0.5
+      when 18..25 then 0.25
+      when 26..64 then 0.1
       end
     else
-      0
+      discount = 0
     end
+
+    if @movie_start_at.hour <= 15
+      discount = discount + 0.1
+    end
+
+    discount * @price
   end
 
   def calculate_age(date)
